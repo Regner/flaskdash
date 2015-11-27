@@ -1,0 +1,5 @@
+<li data-row="{{ context.pos_y }}" data-col="{{ context.pos_x }}" data-sizex="{{ context.size_x }}" data-sizey="{{ context.size_y }}">
+    <div class="widget widget-{{ context.widget_name }}">
+        {% block grid_content %}{% endblock %}
+    </div>
+</li>

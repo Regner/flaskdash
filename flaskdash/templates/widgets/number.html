@@ -1,7 +1,10 @@
-<h1 class="title">{{ title }}</h1>
+{% extends "grid_element.html" %}
+{% block grid_content %}
+    <h1 class="title">{{ context.title }}</h1>
 
-<h2 class="value">{{ value }}</h2>
+    <h2 class="value">{{ context.value }}</h2>
 
-<p class="more-info">{{ more_info }}</p>
+    <p class="more-info">{{ context.more_info }}</p>
 
-<p class="updated-at">{{ updated_at }}</p>
+    <p class="updated-at">{{ context.updated_at }}</p>
+{% endblock %}

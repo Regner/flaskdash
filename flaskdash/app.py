@@ -6,6 +6,7 @@ from flask import Flask
 from flaskdash.settings import AppConfig
 from flaskdash.extensions import configure_extensions
 
+from flaskdash.routes import blueprint
 
 def create_app():
     """ Creates the app. """
@@ -14,5 +15,7 @@ def create_app():
     app.config.from_object(AppConfig)
 
     configure_extensions(app)
+
+    app.register_blueprint(blueprint)
 
     return app
