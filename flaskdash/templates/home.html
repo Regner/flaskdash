@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>TEST DASHBOARD</title>
 
-    <link rel="stylesheet" href="{{ url_for('static',  filename='css/jquery.gridster.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',  filename='css/jquery.gridster.css') }}" />
 
     {% if context.css_files %}
         {% for file in context.css_files %}
@@ -12,8 +12,8 @@
         {% endfor %}
     {% endif %}
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.4.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.gridster.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.11.3.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.gridster.js') }}"></script>
 
     {% if context.js_files %}
         {% for file in context.js_files %}
@@ -24,8 +24,8 @@
     <script type="text/javascript">
         $(function(){
             $(".gridster ul").gridster({
-                widget_margins: [10, 10],
-                widget_base_dimensions: [140, 140]
+                widget_margins: [20, 10],
+                widget_base_dimensions: [240, 540]
             });
         });
     </script>
