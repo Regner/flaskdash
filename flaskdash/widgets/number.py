@@ -3,8 +3,6 @@
 import os
 import json
 
-from flaskdash.utils.decorators import add_data_processor
-
 
 class NumberWidget(object):
     """ Simple widget for displaying a single number. """
@@ -14,14 +12,10 @@ class NumberWidget(object):
     base_template_path = 'widgets'
 
     name = 'number'
-
-    data_processors = {}
+    friendly_name = 'Static Number'
 
     def __init__(self, config):
         self.config = json.loads(config)
-
-    @add_data_processor('Static Data')
-    def get_data_static(self, config):
 
     def get_data(self):
         return self.config['data']
