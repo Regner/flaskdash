@@ -1,0 +1,62 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #222222;
+  font-size: 20px;
+  color: #ffffff;
+  font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+iframe {
+  max-width: 100%;
+}
+
+.gridster {
+  margin: 0 auto;
+}
+
+.list-nostyle {
+  list-style: none;
+}
+
+.gridster ul {
+  list-style: none;
+}
+
+.gs_w {
+  width: 100%;
+  display: table;
+  cursor: pointer;
+}
+
+.widget {
+  text-align: center;
+  width: inherit;
+  height: inherit;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.more-info {
+  font-size: 15px;
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+}
+
+.updated-at {
+  font-size: 15px;
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+}

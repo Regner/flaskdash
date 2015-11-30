@@ -1,7 +1,10 @@
 
 
 import os
-from datetime import datetime
+import json
+
+from flaskdash.utils.decorators import add_data_processor
+
 
 class NumberWidget(object):
     """ Simple widget for displaying a single number. """
@@ -12,28 +15,24 @@ class NumberWidget(object):
 
     name = 'number'
 
+    data_processors = {}
+
+    def __init__(self, config):
+        self.config = json.loads(config)
+
+    @add_data_processor('Static Data')
+    def get_data_static(self, config):
+
     def get_data(self):
-        return {
-            'title': 'YAY TEST!',
-            'value': 1,
-            'more_info': 'More info!',
-            'updated_at': datetime.now().strftime('%Y-%m-%d'),
-        }
+        return self.config['data']
 
     def get_gridster_config(self):
-        return {
-            'pos_y': 1,
-            'pos_x': 1,
-            'size_x': 1,
-            'size_y': 1,
-        }
+        return self.config['gridster_config']
 
     def get_template_context(self):
         context = self.get_gridster_config()
         context.update(self.get_data())
-        context.update({
-            'widget_name': self.name,
-        })
+        context.update(dict(widget_name=self.name))
 
         return context
 

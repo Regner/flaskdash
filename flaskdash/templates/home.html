@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TEST DASHBOARD</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>TEST DASHBOARD</title>
 
-    <link rel="stylesheet" href="{{ url_for('static',  filename='css/jquery.gridster.css') }}" />
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.1.4.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.gridster.min.js') }}"></script>
 
-    {% if context.css_files %}
-        {% for file in context.css_files %}
-            <link rel="stylesheet" href="{{ url_for('static',  filename=file) }}" />
-        {% endfor %}
-    {% endif %}
+        {% if context.js_files %}
+            {% for file in context.js_files %}
+                <script type="text/javascript" src="{{ url_for('static', filename=file) }}"></script>
+            {% endfor %}
+        {% endif %}
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.11.3.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.gridster.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.gridster.min.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/flaskdash.css') }}" />
 
-    {% if context.js_files %}
-        {% for file in context.js_files %}
-            <script type="text/javascript" src="{{ url_for('static', filename=file) }}"></script>
-        {% endfor %}
-    {% endif %}
+        {% if context.css_files %}
+            {% for file in context.css_files %}
+                <link rel="stylesheet" href="{{ url_for('static',  filename=file) }}" />
+            {% endfor %}
+        {% endif %}
 
-    <script type="text/javascript">
-        $(function(){
-            $(".gridster ul").gridster({
-                widget_margins: [20, 10],
-                widget_base_dimensions: [240, 540]
+        <script type="text/javascript">
+            $(function(){
+                var gridster_width = ({{ context.box_size }} + {{ context.margins }} * 2) * {{ context.num_cols }};
+
+                $(".gridster").width(gridster_width);
+                $(".gridster ul").gridster({
+                    widget_margins: [{{ context.margins }}, {{ context.margins }}],
+                    widget_base_dimensions: [{{ context.box_size }}, {{ context.box_size }}],
+                    avoid_overlapped_widgets: true
+                });
             });
-        });
-    </script>
-</head>
-<body>
-    <div id="container">
+        </script>
+    </head>
+    <body>
         <div class="gridster">
             <ul>
                 {{ context.grid_elements|safe }}
             </ul>
         </div>
-    </div>
-</body>
+    </body>
 </html>
