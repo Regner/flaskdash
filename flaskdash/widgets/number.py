@@ -1,15 +1,14 @@
 
 
-import os
 import json
 
 
 class NumberWidget(object):
     """ Simple widget for displaying a single number. """
 
-    base_css_path = 'css/widgets'
-    base_js_path = 'js/widgets'
-    base_template_path = 'widgets'
+    css_path = 'css/widgets/number.css'
+    js_path = 'js/widgets/number.js'
+    template_path = 'widgets/number.html'
 
     name = 'number'
     friendly_name = 'Static Number'
@@ -29,15 +28,3 @@ class NumberWidget(object):
         context.update(dict(widget_name=self.name))
 
         return context
-
-    @property
-    def path_css(self):
-        return '{}.css'.format(os.path.join(self.base_css_path, self.name))
-
-    @property
-    def path_js(self):
-        return '{}.js'.format(os.path.join(self.base_js_path, self.name))
-
-    @property
-    def path_template(self):
-        return '{}.html'.format(os.path.join(self.base_template_path, self.name))
