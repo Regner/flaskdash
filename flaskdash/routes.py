@@ -1,50 +1,57 @@
 
 
 import json
+
 from datetime import datetime
 
 from flask import Blueprint, render_template
 
-from flaskdash.widgets.number import NumberWidget
+from flaskdash.extensions import db_widgets
 
 blueprint = Blueprint('public', __name__, static_folder='../static')
 
-dashboard_options = {
-    'num_cols': 6,
-    'box_size': 300,
-    'margins': 10,
-}
 
-mock_widget_config = {
-    'gridster_config': {
-        'pos_y': 1,
-        'pos_x': 1,
-        'size_x': 1,
-        'size_y': 1,
-    },
-    'data': {
-        'title': 'YAY TEST!',
-        'value': 1,
-        'more_info': 'More info!',
-        'updated_at': datetime.now().strftime('%Y-%m-%d'),
+dashboards = {
+    0: {
+        'num_cols': 6,
+        'box_size': 300,
+        'margins': 10,
     }
 }
 
-@blueprint.route('/')
-def home():
-    widgets = [NumberWidget(json.dumps(mock_widget_config)) for x in xrange(18)]
+widgets = {
+    0: [
+        {
+            'name': 'number',
+            'pos_x': 1,
+            'pos_y': 1,
+            'size_x': 1,
+            'size_y': 1,
+            'config': json.dumps({'value': 1}),
+            'data': json.dumps({
+                'title': 'YAY! TEST!',
+                'more_info': 'More info!',
+                'updated_ad': datetime.now().strftime('%Y-%m-%d'),
+            }),
+        },
+    ],
+}
+
+
+@blueprint.route('/<int:dashboard_id>/')
+def dashboard(dashboard_id):
+    dashboard_config = dashboards[dashboard_id]
+    widget_configs = widgets[dashboard_id]
 
     grid = ''
     css = set()
     js = set()
 
-    for widget in widgets:
-        context = widget.get_template_context()
+    for wc in widget_configs:
+        grid += db_widgets.render_widget(wc['name'], wc['config'], wc['data'])
 
-        grid += render_template(widget.path_template, context=context)
-
-        css.add(widget.path_css)
-        js.add(widget.path_js)
+        css.add(db_widgets.widget_css_path(wc['name']))
+        js.add(db_widgets.widget_js_path(wc['name']))
 
     context = {
         'css_files': css,
@@ -52,6 +59,6 @@ def home():
         'grid_elements': grid,
     }
 
-    context.update(dashboard_options)
+    context.update(dashboard_config)
 
     return render_template('home.html', context=context)

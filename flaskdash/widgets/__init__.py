@@ -2,12 +2,18 @@
 
 import logging
 
+from flask.ext.wtf import Form
+
 from flaskdash.widgets.number import NumberWidget
 
 logger = logging.getLogger(__name__)
 
 
 class WidgetAlreadyRegistered(Exception):
+    pass
+
+
+class MockForm(Form):
     pass
 
 
@@ -22,7 +28,7 @@ class DashboardWidgets(object):
         # Config stuff here
 
         # Register default widgets
-        self.register_widget(NumberWidget())
+        self.register_widget(NumberWidget)
 
         # Use the newstyle teardown_appcontext if it's available,
         # otherwise fall back to the request context
@@ -38,8 +44,11 @@ class DashboardWidgets(object):
         :param widget:
         :return:
         """
-        if widget.name not in self.widget_registry:
+        if widget.name in self.widget_registry:
             raise WidgetAlreadyRegistered('A widget by the name of {} is already registered.'.format(widget.name))
 
         else:
             self.widget_registry[widget.name] = widget
+
+    def get_form(self, widget_name, gridster_config):
+        pass
