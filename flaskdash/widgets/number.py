@@ -20,7 +20,7 @@ class NumberWidget(object):
     }
 
     def __init__(self, widget_config, widget_data):
-        self.gridster_config = json.loads(gridster_config)
+        pass
 
     def get_data(self):
         return self.config['data']

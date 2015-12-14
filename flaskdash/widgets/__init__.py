@@ -2,7 +2,7 @@
 
 import logging
 
-from flask.ext.wtf import Form
+from flask import render_template
 
 from flaskdash.widgets.number import NumberWidget
 
@@ -13,7 +13,7 @@ class WidgetAlreadyRegistered(Exception):
     pass
 
 
-class MockForm(Form):
+class NoSuchWidget(Exception):
     pass
 
 
@@ -36,19 +36,36 @@ class DashboardWidgets(object):
         #     app.teardown_appcontext(self.teardown)
         # else:
         #     app.teardown_request(self.teardown)
-        pass
 
     def register_widget(self, widget):
-        """ Stores a widget in the internal registry for working with later.
+        """ Stores a widget in the internal registry for working with later. """
 
-        :param widget:
-        :return:
-        """
         if widget.name in self.widget_registry:
             raise WidgetAlreadyRegistered('A widget by the name of {} is already registered.'.format(widget.name))
 
         else:
             self.widget_registry[widget.name] = widget
 
-    def get_form(self, widget_name, gridster_config):
-        pass
+    def render_widget(self, widget_name, widget_data):
+        """ Returns the HTML for a given widget and it's data. """
+
+        if widget_name not in self.widget_registry:
+            raise NoSuchWidget('There is no registered widget by the name of {}'.format(widget_name))
+
+
+
+    def widget_css_path(self, widget_name):
+        """ Returns the path for a widgets CSS file. """
+
+        if widget_name not in self.widget_registry:
+            raise NoSuchWidget('There is no registered widget by the name of {}'.format(widget_name))
+
+        return self.widget_registry[widget_name].css_path
+
+    def widget_js_path(self, widget_name):
+        """ Returns the path for a widgets JS file. """
+
+        if widget_name not in self.widget_registry:
+            raise NoSuchWidget('There is no registered widget by the name of {}'.format(widget_name))
+
+        return self.widget_registry[widget_name].js_path

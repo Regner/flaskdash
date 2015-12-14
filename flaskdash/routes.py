@@ -27,11 +27,13 @@ widgets = {
             'pos_y': 1,
             'size_x': 1,
             'size_y': 1,
-            'config': json.dumps({'value': 1}),
             'data': json.dumps({
                 'title': 'YAY! TEST!',
                 'more_info': 'More info!',
                 'updated_ad': datetime.now().strftime('%Y-%m-%d'),
+                'config': {
+                    'value': 1,
+                }
             }),
         },
     ],
@@ -48,7 +50,7 @@ def dashboard(dashboard_id):
     js = set()
 
     for wc in widget_configs:
-        grid += db_widgets.render_widget(wc['name'], wc['config'], wc['data'])
+        grid += db_widgets.render_widget(wc['name'], wc['data'])
 
         css.add(db_widgets.widget_css_path(wc['name']))
         js.add(db_widgets.widget_js_path(wc['name']))
