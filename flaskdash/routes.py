@@ -129,7 +129,7 @@ widgets = {
 }
 
 
-@blueprint.route('/<int:dashboard_id>/')
+@blueprint.route('/dashboards/<int:dashboard_id>/')
 def dashboard(dashboard_id):
     dashboard_config = dashboards[dashboard_id]
     widget_configs = widgets[dashboard_id]
@@ -153,3 +153,7 @@ def dashboard(dashboard_id):
     context.update(dashboard_config)
 
     return render_template('home.html', context=context)
+
+@blueprint.route('/admin/')
+def admin():
+    pass
