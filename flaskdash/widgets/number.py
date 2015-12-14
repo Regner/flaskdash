@@ -1,12 +1,10 @@
 
 
-import json
-
 from wtforms import IntegerField
 
 
 class NumberWidget(object):
-    """ Simple widget for displaying a single number. """
+    """ Simple widget for displaying a single static number. """
 
     css_path = 'css/widgets/number.css'
     js_path = 'js/widgets/number.js'
@@ -19,15 +17,10 @@ class NumberWidget(object):
         'number': IntegerField('Number'),
     }
 
-    def __init__(self, widget_config, widget_data):
-        pass
+    def __init__(self, widget_config):
+        self.widget_config = widget_config
 
-    def get_data(self):
-        return self.config['data']
-
-    def get_template_context(self):
-        context = self.gridster_config
-        context.update(self.get_data())
-        context.update(dict(widget_name=self.name))
-
-        return context
+    def get_template_data(self):
+        return {
+            'value': self.widget_config['value'],
+        }
