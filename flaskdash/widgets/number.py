@@ -14,7 +14,7 @@ class NumberWidget(object):
     friendly_name = 'Static Number'
 
     form_config = {
-        'number': IntegerField('Number'),
+        'number': IntegerField('Number', default=1),
     }
 
     def __init__(self, widget_config):
