@@ -11,15 +11,16 @@ from flaskdash.extensions import db_widgets
 blueprint = Blueprint('public', __name__, static_folder='../static')
 
 
-dashboards = {
+dashboards_db = {
     0: {
+        'name': 'TEST DASHBOARD!',
         'num_cols': 3,
         'box_size': 300,
         'margins': 10,
     }
 }
 
-widgets = {
+widgets_db = {
     0: [
         {
             'name': 'number',
@@ -131,8 +132,8 @@ widgets = {
 
 @blueprint.route('/dashboards/<int:dashboard_id>/')
 def dashboard(dashboard_id):
-    dashboard_config = dashboards[dashboard_id]
-    widget_configs = widgets[dashboard_id]
+    dashboard_config = dashboards_db[dashboard_id]
+    widget_configs = widgets_db[dashboard_id]
 
     grid = ''
     css = set()
@@ -156,4 +157,11 @@ def dashboard(dashboard_id):
 
 @blueprint.route('/admin/')
 def admin():
-    pass
+    dashboards = []
+
+    for board in dashboards_db:
+        dashboards.append({
+            'name': board['name'],
+            'max_cols': '',
+            'num_widgets': '',
+        })
